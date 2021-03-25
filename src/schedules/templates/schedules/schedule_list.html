@@ -1,5 +1,8 @@
-<h1>My schedules</h1>
+{% extends 'base.html' %}
 
-{% for schedule in object_list %}
-    <p>{{ schedule.name }}</p>
-{% endfor %}
+{% block content %}
+    <h2>My schedules</h2>
+    {% for schedule in object_list %}
+        <p>{{ schedule.name }}</p>
+    {% endfor %}
+{% endblock content %}
