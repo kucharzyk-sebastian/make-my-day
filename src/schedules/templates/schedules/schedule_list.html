@@ -2,7 +2,8 @@
 
 {% block content %}
     <h2>My schedules</h2>
+    <a href="{% url 'schedules:schedule_create' %}">Create new</a>
     {% for schedule in object_list %}
-        <p>{{ schedule.name }}</p>
+        <p>{{ schedule.name }}   <a href="{% url 'schedules:schedule_detail' schedule.pk %}">Details</a> | <a href="{% url 'schedules:schedule_update' schedule.pk %}">Edit | <a href="{% url 'schedules:schedule_delete' schedule.pk %}">Delete</a></p>
     {% endfor %}
 {% endblock content %}
