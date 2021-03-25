@@ -3,4 +3,22 @@
 {% block content %}
     <h2>{{ object.name }}</h2>
     <p><a href="{% url 'schedules:schedule_update' object.pk %}">Edit</a> | <a href="{% url 'schedules:schedule_delete' object.pk %}">Delete</a></p>
+
+    <div class="flex-grid">
+    {% with 'Monday Tuesday Wednesday Thursday Friday Saturday Sunday' as list %}
+        {% for day in list.split %}
+            <div class="col">
+                <h3>{{ day }}</h3>
+                {% for entry in object.scheduleentry_set.all %}
+                    {% if entry.get_day_display == day %}
+                        <h4>{{ entry.title }}</h4>
+                        <p>{{ entry.description }}</p>
+                        <p>{{ entry.start_time }}-{{ entry.end_time }}</p>
+                        </br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endwith %}
+    </div>
 {% endblock content %}

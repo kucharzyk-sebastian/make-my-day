@@ -14,6 +14,7 @@ class Schedule(models.Model):
 class ScheduleEntry(models.Model):
     class Meta:
         verbose_name_plural = "Schedule entries"
+        ordering = ["day", "start_time"]
 
     class DayInWeek(models.TextChoices):
         MONDAY = 0, _('Monday')
