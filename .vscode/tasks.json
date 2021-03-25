@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Python: clear cache",
+      "type": "shell",
+      "command": "del  /S \"src\\*.pyc",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Python: set up environment",
+      "command": "${input:reloadWindow}",
+      "dependsOn": "sub: prepare venv"
+    },
+    // helpers
+    {
+      "label": "sub: prepare venv",
+      "type": "shell",
+      "command": "python -m venv .venv && .\\.venv\\Scripts\\activate && python -m pip install pip==21.0.1 && pip install -r requirements.txt && pip install -r dev-requirements.txt",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "reloadWindow",
+      "type": "command",
+      "command": "workbench.action.reloadWindow"
+    }
+  ]
+}
