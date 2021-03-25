@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    <p><a href="{% url 'schedules:schedule_update' object.pk %}">Edit</a> | <a href="{% url 'schedules:schedule_delete' object.pk %}">Delete</a></p>
+{% endblock content %}
