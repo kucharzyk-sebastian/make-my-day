@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse
 
-from .models import Schedule
+from .models import Schedule, ScheduleEntry
 
 
 class ScheduleListView(LoginRequiredMixin, ListView):
@@ -48,3 +49,19 @@ class ScheduleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.get_object().author == self.request.user
+
+
+class ScheduleEntryCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = ScheduleEntry
+    fields = ('title', 'description', 'day', 'start_time', 'end_time')
+
+    def test_func(self):
+        self.schedule = get_object_or_404(Schedule, pk=self.kwargs['schedule_id'])
+        return self.schedule.author == self.request.user
+
+    def form_valid(self, form):
+        form.instance.schedule = self.schedule
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('schedules:schedule_detail', args=[self.object.schedule.pk])

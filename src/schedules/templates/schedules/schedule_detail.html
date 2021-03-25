@@ -3,7 +3,7 @@
 {% block content %}
     <h2>{{ object.name }}</h2>
     <p><a href="{% url 'schedules:schedule_update' object.pk %}">Edit</a> | <a href="{% url 'schedules:schedule_delete' object.pk %}">Delete</a></p>
-
+    <p><a href="{% url 'schedules:scheduleentry_create' object.pk%}">Add new entry</a></p>
     <div class="flex-grid">
     {% with 'Monday Tuesday Wednesday Thursday Friday Saturday Sunday' as list %}
         {% for day in list.split %}
