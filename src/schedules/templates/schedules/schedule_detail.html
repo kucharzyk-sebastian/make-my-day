@@ -14,7 +14,9 @@
                         <h4>{{ entry.title }}</h4>
                         <p>{{ entry.description }}</p>
                         <p>{{ entry.start_time }}-{{ entry.end_time }}</p>
-                        <p style="font-size: x-small;"><a href="{% url 'schedules:scheduleentry_delete' object.pk entry.pk %}">Delete</a></p>
+                        <p style="font-size: x-small;">
+                            <a href="{% url 'schedules:scheduleentry_delete' object.pk entry.pk %}">Delete</a> | <a href="{% url 'schedules:scheduleentry_update' object.pk entry.pk %}">Edit</a>
+                        </p>
                         </br>
                     {% endif %}
                 {% endfor %}
