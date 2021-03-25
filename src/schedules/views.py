@@ -65,3 +65,14 @@ class ScheduleEntryCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def get_success_url(self):
         return reverse('schedules:schedule_detail', args=[self.object.schedule.pk])
+
+
+class ScheduleEntryDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ScheduleEntry
+
+    def test_func(self):
+        schedule = get_object_or_404(Schedule, pk=self.kwargs['schedule_id'])
+        return schedule.author == self.request.user
+
+    def get_success_url(self):
+        return reverse('schedules:schedule_detail', args=[self.object.schedule.pk])
