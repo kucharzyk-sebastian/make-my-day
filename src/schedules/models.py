@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -34,3 +35,23 @@ class ScheduleEntry(models.Model):
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        q = ScheduleEntry.objects.filter(
+            day__exact=self.day,
+            start_time__gte=self.start_time,
+            start_time__lt=self.end_time
+        )
+        if q.count() > 1 or (q.count() == 1 and q[0].pk != self.pk):
+            raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
+
+        q = ScheduleEntry.objects.filter(
+            day__exact=self.day,
+            end_time__gt=self.start_time,
+            end_time__lte=self.end_time
+        )
+        if q.count() > 1 or (q.count() == 1 and q[0].pk != self.pk):
+            raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
+
+        if self.start_time > self.end_time:
+            raise ValidationError({'end_time': _('End time cannot be before start time.')})
