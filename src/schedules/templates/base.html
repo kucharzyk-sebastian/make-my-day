@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <style>
+            .nav {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav > li {
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <ul class="nav">
+            <li><a href="{% url 'schedules:schedule_list' %}">Home</a></li>
+            {% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                <li><a href="{% url 'password_reset' %}">Forgot your password?</a></li>
+                <li><a href="{% url 'user_create' %}">Sign up</a></li>
+            {% else %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                <li><a href="{% url 'password_change' %}">Change password</a></li>
+            {% endif %}
+        </ul>
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
