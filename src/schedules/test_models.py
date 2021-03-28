@@ -8,7 +8,7 @@ from schedules.models import Schedule, ScheduleEntry
 
 class TestSchedule(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create(
+        self.user = get_user_model().objects.create_user(
             username='test_user',
             email='test_user@test.com',
             password='test_password'
@@ -48,7 +48,7 @@ class TestSchedule(TestCase):
 
 class TestScheduleEntry(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create(
+        self.user = get_user_model().objects.create_user(
             username='test_user',
             email='test_user@test.com',
             password='test_password'
