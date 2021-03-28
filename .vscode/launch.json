@@ -24,7 +24,11 @@
             "name": "Python: Linter",
             "type": "python",
             "module": "pylint",
-            "args": ["./src"],
+            "args": [
+                "--load-plugins=pylint_django",
+                "--disable=django-not-configured",
+                "./src"
+            ],
             "request": "launch",
             "console": "integratedTerminal"
         }

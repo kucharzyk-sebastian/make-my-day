@@ -1,6 +1,9 @@
 from django.urls import path
 
-from .views import ScheduleCreateView, ScheduleDeleteView, ScheduleDetailView, ScheduleEntryCreate, ScheduleEntryDelete, ScheduleEntryUpdateView, ScheduleListView, ScheduleUpdateView
+from .views import (ScheduleCreateView, ScheduleDeleteView, ScheduleDetailView,
+                    ScheduleEntryCreate, ScheduleEntryDelete,
+                    ScheduleEntryUpdateView, ScheduleListView,
+                    ScheduleUpdateView)
 
 app_name = 'schedules'
 urlpatterns = [

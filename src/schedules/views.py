@@ -55,6 +55,10 @@ class ScheduleEntryCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = ScheduleEntry
     fields = ('title', 'description', 'day', 'start_time', 'end_time')
 
+    def __init__(self):
+        self.schedule = None
+        super().__init__()
+
     def test_func(self):
         self.schedule = get_object_or_404(Schedule, pk=self.kwargs['schedule_id'])
         return self.schedule.author == self.request.user
