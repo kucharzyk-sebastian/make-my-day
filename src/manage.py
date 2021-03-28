@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mmb_project.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mmd_project.settings')
     try:
         from django.core.management import execute_from_command_line # pylint: disable=import-outside-toplevel
     except ImportError as exc:
