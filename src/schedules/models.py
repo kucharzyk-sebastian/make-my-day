@@ -28,7 +28,7 @@ class ScheduleEntry(models.Model):
 
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, blank=True)
     day = models.CharField(max_length=3, choices=DayInWeek.choices)
     start_time = models.TimeField()
     end_time = models.TimeField()
