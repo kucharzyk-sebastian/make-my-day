@@ -37,20 +37,20 @@ class ScheduleEntry(models.Model):
         return self.title
 
     def clean(self):
-        q = ScheduleEntry.objects.filter(
+        queried = ScheduleEntry.objects.filter(
             day__exact=self.day,
             start_time__gte=self.start_time,
             start_time__lt=self.end_time
         )
-        if q.count() > 1 or (q.count() == 1 and q[0].pk != self.pk):
+        if queried.count() > 1 or (queried.count() == 1 and queried[0].pk != self.pk):
             raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
 
-        q = ScheduleEntry.objects.filter(
+        queried = ScheduleEntry.objects.filter(
             day__exact=self.day,
             end_time__gt=self.start_time,
             end_time__lte=self.end_time
         )
-        if q.count() > 1 or (q.count() == 1 and q[0].pk != self.pk):
+        if queried.count() > 1 or (queried.count() == 1 and queried[0].pk != self.pk):
             raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
 
         if self.start_time > self.end_time:
