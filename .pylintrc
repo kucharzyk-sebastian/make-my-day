@@ -146,7 +146,8 @@ disable=parameter-unpacking,
         missing-module-docstring,
         missing-function-docstring,
         missing-class-docstring,
-        duplicate-code
+        duplicate-code,
+        too-many-ancestors
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
