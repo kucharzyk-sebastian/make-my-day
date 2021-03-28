@@ -6,6 +6,10 @@ from django.urls import reverse
 from schedules.models import Schedule, ScheduleEntry
 
 
+class IsOwnerMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
 class ScheduleListView(LoginRequiredMixin, ListView):
     model = Schedule
 
@@ -25,31 +29,25 @@ class ScheduleCreateView(LoginRequiredMixin, CreateView):
         return reverse('schedules:schedule_detail', args=[self.object.pk])
 
 
-class ScheduleDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class ScheduleDetailView(LoginRequiredMixin, IsOwnerMixin, DetailView):
     model = Schedule
 
-    def test_func(self):
-        return self.get_object().author == self.request.user
 
-
-class ScheduleUpdateView(LoginRequiredMixin, UpdateView):
+class ScheduleUpdateView(LoginRequiredMixin, IsOwnerMixin, UpdateView):
     model = Schedule
     fields = ('name', )
 
-    def test_func(self):
-        return self.get_object().author == self.request.user
 
     def get_success_url(self):
         return reverse('schedules:schedule_detail', args=[self.object.pk])
 
 
-class ScheduleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class ScheduleDeleteView(LoginRequiredMixin, IsOwnerMixin, DeleteView):
     model = Schedule
     success_url = '/'
 
-    def test_func(self):
-        return self.get_object().author == self.request.user
-
+    def get_success_url(self):
+        return reverse('schedules:schedule_list')
 
 class ScheduleEntryCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = ScheduleEntry
@@ -87,7 +85,6 @@ class ScheduleEntryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
     fields = ('title', 'description', 'day', 'start_time', 'end_time')
 
     def test_func(self):
-        print('xd', self.kwargs['schedule_id'])
         schedule = get_object_or_404(Schedule, pk=self.kwargs['schedule_id'])
         return schedule.author == self.request.user
 
