@@ -37,21 +37,25 @@ class ScheduleEntry(models.Model):
         return self.title
 
     def clean(self):
-        queried = ScheduleEntry.objects.filter(
+        colliding = ScheduleEntry.objects.filter(
             day__exact=self.day,
             start_time__gte=self.start_time,
             start_time__lt=self.end_time
         )
-        if queried.count() > 1 or (queried.count() == 1 and queried[0].pk != self.pk):
-            raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
+        self._check_colliding(colliding)
 
-        queried = ScheduleEntry.objects.filter(
+        colliding = ScheduleEntry.objects.filter(
             day__exact=self.day,
             end_time__gt=self.start_time,
             end_time__lte=self.end_time
         )
-        if queried.count() > 1 or (queried.count() == 1 and queried[0].pk != self.pk):
-            raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
+        self._check_colliding(colliding)
 
         if self.start_time > self.end_time:
             raise ValidationError({'end_time': _('End time cannot be before start time.')})
+
+    def _check_colliding(self, scheduled_entries):
+        any_other_entry = not all([entry.pk == self.pk for entry in scheduled_entries])
+        if any_other_entry:
+            raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
+

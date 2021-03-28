@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ScheduleCreateView, ScheduleDeleteView, ScheduleDetailView,
+from schedules.views import (ScheduleCreateView, ScheduleDeleteView, ScheduleDetailView,
                     ScheduleEntryCreate, ScheduleEntryDelete,
                     ScheduleEntryUpdateView, ScheduleListView,
                     ScheduleUpdateView)

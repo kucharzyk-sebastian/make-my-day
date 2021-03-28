@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Schedule, ScheduleEntry
+from schedules.models import Schedule, ScheduleEntry
 
 
 class ScheduleEntryInline(admin.TabularInline):
