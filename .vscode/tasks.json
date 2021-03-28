@@ -16,6 +16,16 @@
       "command": "${input:reloadWindow}",
       "dependsOn": "sub: prepare venv"
     },
+    {
+      "label": "Django: Migrate",
+      "type": "shell",
+      "command": ".\\.venv\\Scripts\\activate && python src\\manage.py migrate",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
     // helpers
     {
       "label": "sub: prepare venv",

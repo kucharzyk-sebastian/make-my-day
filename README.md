@@ -24,7 +24,7 @@ Once you have extensions installed, you need to make sure that your default term
 
 Simply open Visual Studio Code in the root directory, press `ctrl + shift + p`, type `Tasks: run task` and confirm it with `enter`. It will show a list of all available tasks. Choose `Python: set up environment` and press `enter`. You'll see a dropdown with choices, select `Continue without scanning the task output` and press `enter` again. It should open a terminal and install all the required packages (alternatively, you can use the Task Explorer extension for that).
 
-The next step is to prepare Django for local development. First of all, you need to run the database's migrations by executing `Django: run migrations` tasks. Once this is ready, you should create a superuser. Open a new terminal in Visual Studio Code by going to the `Terminal` tab and selecting `New terminal` (or CTRL+SHIFT+\`). The path in the terminal window should be prepended with the `(.venv)` keyword. If it's not, you need to activate the virtual environment by executing `.venv\Scripts\activate`. Finally, create the superuser by executing `python manage.py createsuperuser` and follow the prompts.
+The next step is to prepare Django for local development. First of all, you need to run the database's migrations by executing `Django: Migrate` tasks. Once this is ready, you should create a superuser. Open a new terminal in Visual Studio Code by going to the `Terminal` tab and selecting `New terminal` (or CTRL+SHIFT+\`). The path in the terminal window should be prepended with the `(.venv)` keyword. If it's not, you need to activate the virtual environment by executing `.venv\Scripts\activate`. Finally, create the superuser by executing `python manage.py createsuperuser` and follow the prompts.
 
 ## Running the tests
 
@@ -34,7 +34,7 @@ To execute all tests you need to click on the `Run` view in the `activity bar` (
 
 ### Local server
 
-If you want to run the project on a local server you should also go to the `Run` view and execute `Django: run server` configuration.
+If you want to run the project on a local server you should also go to the `Run` view and execute `Django: Run server` configuration.
 
 ### Maintaining code quality
 
