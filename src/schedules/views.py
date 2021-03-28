@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse
 
-from .models import Schedule, ScheduleEntry
+from schedules.models import Schedule, ScheduleEntry
 
 
 class ScheduleListView(LoginRequiredMixin, ListView):

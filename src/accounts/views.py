@@ -2,9 +2,9 @@ from django.shortcuts import redirect
 from django.urls.base import reverse_lazy
 from django.views.generic import CreateView
 
-from .forms import CustomUserCreationForm
+from accounts.forms import CustomUserCreationForm
 
-from .models import CustomUser
+from accounts.models import CustomUser
 
 
 class CustomUserCreateView(CreateView):
