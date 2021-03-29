@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,11 +19,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r dev-requirements.txt
-    - name: Run linter
-      run: |
-        python -m pylint --load-plugins=pylint_django --disable=django-not-configured ./src
-      env:
-        PYTHONPATH: ./src
-    - name: Run Tests
-      run: |
-        python src/manage.py test
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linter
+        run: |
+          python -m pylint --load-plugins=pylint_django --disable=django-not-configured ./src
+        env:
+          PYTHONPATH: ./src
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: |
+          python src/manage.py test
