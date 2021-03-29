@@ -97,7 +97,7 @@ class TestScheduleEntry(TestCase):
 
         schedule = ScheduleEntry(schedule=self.schedule, **self.schedule_entry_data)
 
-        with self.assertRaises(ValidationError) as context:
+        with self.assertRaises(ValidationError):
             schedule.full_clean()
 
     @parameterized.expand([
