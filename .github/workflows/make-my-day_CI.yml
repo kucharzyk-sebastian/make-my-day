@@ -1,4 +1,4 @@
-name: Django CI
+name: MakeMyDay CI
 on:
   push:
     branches: [ main ]
