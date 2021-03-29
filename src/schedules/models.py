@@ -55,7 +55,6 @@ class ScheduleEntry(models.Model):
             raise ValidationError({'end_time': _('End time cannot be before start time.')})
 
     def _check_colliding(self, scheduled_entries):
-        any_other_entry = not all([entry.pk == self.pk for entry in scheduled_entries])
+        any_other_entry = not all(entry.pk == self.pk for entry in scheduled_entries)
         if any_other_entry:
             raise ValidationError({'start_time': _('You already have an entry in this time frame!!')})
-
